@@ -8,8 +8,8 @@ import { Password } from "./models/password.js";
 const app = express();
 const port = process.env.PORT;
 
-app.use(bodyParser.json())
-app.use(cors())
+app.use(bodyParser.json());
+app.use(cors());
 
 const uri = process.env.MONGO_URI;
 
