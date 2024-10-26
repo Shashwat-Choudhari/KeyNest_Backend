@@ -15,24 +15,27 @@ passwordsRouter.post("/save/:id", async (req, res) => {
         const newPassword = new Password({ id: id, user_id: userId, site: site, username: username, password: password });
 
         await newPassword.save();
-        console.log("New password added");
 
-        res.status(200).send("Password saved successfully");
+        res.status(200).json({msg:"Password saved successfully", status: true});
     } catch (error) {
         console.error("Error saving password:", error);
-        res.status(500).send("Failed to save password");
+        res.status(500).json({msg: "Failed to save password", status: false});
     }
 });
 
 passwordsRouter.post("/delete", async (req, res) => {
     try {
         const { id, user_id } = req.body;
-        const resut = await Password.deleteOne({ id: id, user_id: user_id });
-        console.log("Password deleted succesfully");
+        const result = await Password.findOneAndDelete({ id: id, user_id: user_id });
+        
+        if (result) {
+            res.status(200).json({msg: "Password deleted successfully", status: true});
+        } else {
+            res.status(400).json({msg: "Password not found", status: false});
+        }
 
-        res.status(200).send("Password deleted successfully");
     } catch (error) {
         console.error("Error deleting password:", error);
-        res.status(500).send("Failed to delete password");
+        res.status(500).json({msg: "Failed to delete password", status: false});
     }
 });
