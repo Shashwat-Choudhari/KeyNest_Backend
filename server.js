@@ -19,7 +19,7 @@ if (conn) {
     console.log("Database connected succesfully");
 }
 
-app.use("api/v1/user", userRouter)
+app.use("/api/v1/user", userRouter)
 app.use("/api/v1/passwords", passwordsRouter);
 
 app.listen(port, () => {
