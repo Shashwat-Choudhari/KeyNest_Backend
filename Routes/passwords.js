@@ -1,5 +1,5 @@
 import express from "express";
-import { Password } from "./models/password.js";
+import { Password } from "../models/password.js";
 export const passwordsRouter = express.Router();
 
 passwordsRouter.get("/:id", async (req, res) => {
