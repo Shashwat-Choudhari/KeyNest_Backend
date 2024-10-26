@@ -25,8 +25,8 @@ passwordsRouter.post("/save/:id", async (req, res) => {
 
 passwordsRouter.post("/delete", async (req, res) => {
     try {
-        const { id, user_id } = req.body;
-        const result = await Password.findOneAndDelete({ id: id, user_id: user_id });
+        const { id } = req.body;
+        const result = await Password.findOneAndDelete({ id: id});
         
         if (result) {
             res.status(200).json({msg: "Password deleted successfully", status: true});
