@@ -10,7 +10,11 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://key-nest-frontend.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+}));
 
 const uri = process.env.MONGO_URI;
 
