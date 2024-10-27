@@ -22,6 +22,10 @@ if (conn) {
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/passwords", passwordsRouter);
 
+app.get("/",(req, res)=>{
+    res.send("Server Running");
+})
+
 app.listen(port, () => {
     console.log(`Server running in port ${port}`);
 });
