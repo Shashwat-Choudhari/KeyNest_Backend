@@ -6,7 +6,7 @@ import cors from "cors";
 import { userRouter } from "./Routes/users.js";
 import { passwordsRouter } from "./Routes/passwords.js";
 
-export const app = express();
+const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
@@ -25,3 +25,5 @@ app.use("/api/v1/passwords", passwordsRouter);
 app.get("/",(req, res)=>{
     res.send("Server Running");
 })
+
+export default app;
