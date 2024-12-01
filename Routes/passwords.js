@@ -52,10 +52,19 @@ passwordsRouter.post("/save/:id", async (req, res) => {
     try {
         const { id, site, username, password } = req.body;
         const userId = req.params.id;
-        const encryptedPassword = encryptPassword(password);
+        const {encryptedPassword, iv} = encryptPassword(password);
         console.log(encryptedPassword);
 
-        const newPassword = new Password({ id: id, user_id: userId, site: site, username: username, password: encryptedPassword });
+        const newPassword = new Password({
+            id: id,
+            user_id: userId,
+            site: site,
+            username: username,
+            password: {
+                encryptedData: encryptedData,
+                iv: iv,
+            }
+        });
 
         await newPassword.save();
 

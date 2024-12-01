@@ -4,7 +4,10 @@ const passwordSchema = new mongoose.Schema({
     user_id: String,
     site: String,
     username: String,
-    password: String
+    password: {
+        encryptedData: String,
+        iv: String
+    },
 })
 
 export const Password = mongoose.model('Password', passwordSchema);
