@@ -9,8 +9,13 @@ import { passwordsRouter } from "./Routes/passwords.js";
 const app = express();
 const port = 3000;
 
+const corsOptions = {
+    origin: 'https://key-nest-frontend.vercel.app',  // Replace with the exact URL of your frontend
+};
+  
+
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 const uri = process.env.MONGO_URI;
 
