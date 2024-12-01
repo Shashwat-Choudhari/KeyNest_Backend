@@ -5,13 +5,13 @@ import 'dotenv/config';
 export const passwordsRouter = express.Router();
 
 const ENCRYPTION_ALGORITHM = "aes-256-ctr";
-const ENCRYPTION_KEY = process.env.MASTER_PASSWORD; 
+const ENCRYPTION_KEY = crypto.scryptSync(process.env.MASTER_PASSWORD, 'salt', 32);
 const IV_LENGTH = 16;
 
 function encryptPassword(password) {
     const iv = crypto.randomBytes(IV_LENGTH);
     const cipher = crypto.createCipheriv(ENCRYPTION_ALGORITHM, ENCRYPTION_KEY, iv);
-    const encrypted = Buffer.concat([cipher.update(password), cipher.final()]);
+    const encrypted = Buffer.concat([cipher.update(password, 'utf8'), cipher.final()]);
     return { encryptedData: encrypted.toString("hex"), iv: iv.toString("hex") };
 }
 
@@ -53,6 +53,8 @@ passwordsRouter.post("/save/:id", async (req, res) => {
         const { id, site, username, password } = req.body;
         const userId = req.params.id;
         const encryptedPassword = encryptPassword(password);
+        console.log(encryptedPassword);
+
         const newPassword = new Password({ id: id, user_id: userId, site: site, username: username, password: encryptedPassword });
 
         await newPassword.save();
