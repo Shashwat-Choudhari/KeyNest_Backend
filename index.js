@@ -10,7 +10,9 @@ const app = express();
 const port = 3000;
 
 const corsOptions = {
-    origin: 'https://key-nest-frontend.vercel.app'
+    origin: 'https://key-nest-frontend.vercel.app',  // Frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],     // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
 };
   
 
